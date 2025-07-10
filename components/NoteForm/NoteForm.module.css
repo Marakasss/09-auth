@@ -1,0 +1,106 @@
+.form {
+  background-color: rgb(249, 251, 168);
+  background-image: linear-gradient(to left, #ffe4b2, #fcfeb3d7);
+  padding: 1.5rem;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transform-style: preserve-3d;
+  position: relative;
+  max-width: 500px;
+  margin: 2rem auto;
+  font-family: "Grape Nuts", cursive;
+  transition: transform 0.3s;
+}
+
+.form::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: -1;
+  transform-origin: bottom left;
+  transform: translate3d(8px, 2px, -1px) rotate(1deg);
+  filter: blur(2px);
+  transition: all 0.3s;
+}
+
+.form:hover::before {
+  transform: translate3d(6rem, 1rem, -1px) scale(0.9) rotate(1.5deg);
+  filter: blur(8px);
+}
+
+.formGroup {
+  margin-bottom: 1.2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.formLabel {
+  font-weight: bold;
+  font-family:
+    Cambria, Cochin, Georgia, Times, "Times New Roman", serif, sans-serif;
+  color: midnightblue;
+  font-size: 16px;
+}
+
+.input,
+.textarea,
+.select {
+  padding: 0.5rem;
+  border: none;
+  border-bottom: 3px solid #00a870;
+  border-top: 3px solid #00a870;
+  background-color: rgb(249, 251, 168);
+  background-image: linear-gradient(to left, #ffe4b2, #fbfeb3);
+  color: midnightblue;
+  font-size: 1rem;
+  resize: vertical;
+  font-family:
+    Cambria, Cochin, Georgia, Times, "Times New Roman", serif, sans-serif;
+  transition: border-color 0.2s;
+}
+
+.input:focus,
+.textarea:focus,
+.select:focus {
+  border-color: #007850;
+  outline: none;
+}
+
+.error {
+  font-size: 0.875rem;
+  color: #e03131;
+  margin-top: 0.3rem;
+}
+
+.cancelButton,
+.submitButton {
+  padding: 8px 16px;
+  font-size: 14px;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-right: 8px;
+  font-family: inherit;
+}
+
+.cancelButton {
+  background-color: #6c757d;
+}
+
+.cancelButton:hover {
+  background-color: #495057;
+}
+
+.submitButton {
+  background-color: #00a870;
+}
+
+.submitButton:hover {
+  background-color: #009060;
+}

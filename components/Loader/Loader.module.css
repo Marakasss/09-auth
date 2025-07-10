@@ -1,0 +1,17 @@
+.loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+}
+.dscr {
+  font-size: 16px;
+  color: blue;
+  text-align: center;
+  margin-top: 10px;
+}

@@ -1,0 +1,48 @@
+.app {
+  width: 90%;
+  max-width: 1280px;
+  margin: 0px auto;
+  padding: 16px;
+}
+
+.toolbar {
+  margin-bottom: 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 16px;
+  border-bottom: 1px #fff solid;
+  border: 2px solid saddlebrown;
+  border-radius: 8px;
+  box-shadow: 0.15em 0.15em saddlebrown, 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+.addbutton {
+  text-decoration: none;
+  color: white;
+
+  background: saddlebrown;
+  font-family: "Norican", cursive;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  height: 40px;
+  font-weight: 900;
+  font-size: 16px;
+  border: 3px solid rgb(0, 0, 0);
+  border-radius: 0.4em;
+  box-shadow: 0.15em 0.15em #070707;
+  cursor: pointer;
+}
+
+.addbutton:hover {
+  transform: translate(-0.1em, -0.1em);
+  box-shadow: 0.15em 0.15em #070707;
+  border: 3px solid rgb(0, 0, 0);
+}
+
+.addbutton:active {
+  transform: translate(0.05em, 0.05em);
+  box-shadow: 0.05em 0.05em #070707;
+  border: 2px solid rgb(0, 0, 0);
+}

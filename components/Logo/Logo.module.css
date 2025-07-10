@@ -1,0 +1,21 @@
+.logo {
+  font-family: "Norican", cursive;
+  color: saddlebrown;
+  position: relative;
+  display: flex;
+  align-items: center;
+  font-size: 38px;
+  font-weight: 900;
+  text-shadow: 2px 0 rgba(0, 0, 0, 0.363);
+  margin: 0 auto;
+
+  &::before,
+  &::after {
+    content: "";
+    display: block;
+    width: 16px;
+    height: 3px;
+    background-color: currentColor;
+    margin: 0 1rem;
+  }
+}
