@@ -11,7 +11,7 @@ export type Tag =
   | "Todo";
 
 export interface Note {
-  id: number;
+  id: string;
   title: string;
   content: string;
   createdAt: string;

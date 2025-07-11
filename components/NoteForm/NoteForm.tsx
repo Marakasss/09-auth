@@ -8,6 +8,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createNote } from "@/lib/api/clientApi";
 import { useRouter } from "next/navigation";
 import { useNoteDraftStore } from "@/lib/store/noteStore";
+import { tags } from "@/constants/tags";
 
 const NoteForm = () => {
   const fieldId = useId();
@@ -49,9 +50,7 @@ const NoteForm = () => {
 
     content: Yup.string().max(500, "Note is too long"),
 
-    tag: Yup.string()
-      .oneOf(["Todo", "Work", "Personal", "Meeting", "Shopping"], "Invalid tag")
-      .required("Tag is required"),
+    tag: Yup.string().oneOf(tags, "Invalid tag").required("Tag is required"),
   });
 
   //Post notes func-------------------------------------------
@@ -133,11 +132,11 @@ const NoteForm = () => {
           onChange={handleChange}
           defaultValue={draft.tag}
         >
-          <option value="Todo">Todo</option>
-          <option value="Work">Work</option>
-          <option value="Personal">Personal</option>
-          <option value="Meeting">Meeting</option>
-          <option value="Shopping">Shopping</option>
+          {tags.slice(1).map((tag) => (
+            <option key={tag} value={tag}>
+              {tag}
+            </option>
+          ))}
         </select>
       </div>
 

@@ -1,0 +1,38 @@
+import { cookies } from "next/headers";
+
+import { FetchNotesParams, FetchNotesResponse } from "./clientApi";
+import { api } from "@/app/api/api";
+import { Note } from "@/types/note";
+
+//Fetch notes with server-side cookies
+export async function fetchNotesServer(
+  query: string,
+  page: number,
+  tag: string | undefined = undefined
+): Promise<FetchNotesResponse> {
+  const params: FetchNotesParams = {
+    ...(query.trim() !== "" && { search: query.trim() }),
+    page: page,
+    perPage: 12,
+    tag,
+  };
+  const cookieStore = await cookies();
+  const response = await api.get<FetchNotesResponse>("/notes", {
+    params,
+    headers: {
+      Cookie: cookieStore.toString(),
+    },
+  });
+  return response.data;
+}
+
+//Fetch note by ID with server-side cookies
+export async function fetchNoteByIdServer(noteId: string): Promise<Note> {
+  const cookieStore = await cookies();
+  const response = await api.get<Note>(`/notes/${noteId}`, {
+    headers: {
+      Cookie: cookieStore.toString(),
+    },
+  });
+  return response.data;
+}

@@ -9,7 +9,7 @@ export interface FetchNotesResponse {
   totalPages: number;
 }
 
-interface FetchNotesParams {
+export interface FetchNotesParams {
   search?: string;
   page?: number;
   perPage?: number;
@@ -48,7 +48,7 @@ export async function fetchNotes(
 }
 
 //GET NOTE BY ID
-export async function fetchNoteById(noteId: number): Promise<Note> {
+export async function fetchNoteById(noteId: string): Promise<Note> {
   const response = await nextServer.get<Note>(`/notes/${noteId}`);
   return response.data;
 }

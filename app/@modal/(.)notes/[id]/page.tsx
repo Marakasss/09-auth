@@ -1,6 +1,5 @@
+import { fetchNoteByIdServer } from "@/lib/api/serverApi";
 import NotePreviewClient from "./NotePreview.client";
-
-import { fetchNoteById } from "@/lib/api/clientApi";
 
 import {
   dehydrate,
@@ -18,7 +17,7 @@ const NotePreview = async ({ params }: NotePreviewProps) => {
 
   await queryClient.prefetchQuery({
     queryKey: ["note", id],
-    queryFn: () => fetchNoteById(Number(id)),
+    queryFn: () => fetchNoteByIdServer(id),
   });
 
   return (
