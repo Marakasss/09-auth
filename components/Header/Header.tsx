@@ -14,12 +14,14 @@ const Header = () => {
           <li>
             <Link href="/">Home</Link>
           </li>
-          <li>
-            <AuthNavigation />
-          </li>
+
           <li>
             <TagsMenu />
           </li>
+        </ul>
+
+        <ul>
+          <AuthNavigation />
         </ul>
       </nav>
     </header>

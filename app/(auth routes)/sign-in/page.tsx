@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-import css from "./SignUp.module.css";
+import css from "./SignInPage.module.css";
+import { login, RegisterRequest } from "@/lib/api/clientApi";
 import { useRouter } from "next/navigation";
-import { register, RegisterRequest } from "@/lib/api/clientApi";
 
-const SignUpPage = () => {
+const SignInPage = () => {
   const router = useRouter();
   const [error, setError] = useState("");
 
@@ -15,18 +15,18 @@ const SignUpPage = () => {
         email: String(formData.get("email")),
         password: String(formData.get("password")),
       };
-      await register(formValues);
+      await login(formValues);
       router.push("/profile");
     } catch (err) {
       console.error("error", err);
       setError("Invalid email or password");
     }
   };
-
   return (
     <main className={css.mainContent}>
-      <h1 className={css.formTitle}>Sign up</h1>
       <form action={handleSubmit} className={css.form}>
+        <h1 className={css.formTitle}>Sign in</h1>
+
         <div className={css.formGroup}>
           <label htmlFor="email">Email</label>
           <input
@@ -51,15 +51,14 @@ const SignUpPage = () => {
 
         <div className={css.actions}>
           <button type="submit" className={css.submitButton}>
-            Register
+            Log in
           </button>
         </div>
 
-        <p className={css.error}>Error</p>
+        <p className={css.error}>{error}</p>
       </form>
-      {error && <p>{error}</p>}
     </main>
   );
 };
 
-export default SignUpPage;
+export default SignInPage;

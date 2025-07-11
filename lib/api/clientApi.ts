@@ -1,5 +1,6 @@
 import nextServer from "./api";
 import type { Note, NewNoteData } from "../../types/note";
+import { User } from "@/types/user";
 
 //TYPES
 
@@ -21,16 +22,13 @@ export interface RegisterRequest {
   password: string;
 }
 
-interface User {
-  id: string;
+export interface RegisterResponse {
+  username: string;
   email: string;
-  userName?: string;
-  photoUrl?: string;
-  createdAt: Date;
-  updatedAt: Date;
 }
 
-//GET
+//GET------------------------------------------------------------------
+
 export async function fetchNotes(
   query: string,
   page: number,
@@ -49,25 +47,65 @@ export async function fetchNotes(
   return response.data;
 }
 
-//POST
+//GET NOTE BY ID
+export async function fetchNoteById(noteId: number): Promise<Note> {
+  const response = await nextServer.get<Note>(`/notes/${noteId}`);
+  return response.data;
+}
+
+//GET USER SESSION
+export async function checkSession(): Promise<boolean> {
+  try {
+    await nextServer.get("/auth/refresh");
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+//GET CURRENT USER
+export const getMe = async () => {
+  const responce = await nextServer.get<User>("/auth/me");
+  return responce.data;
+};
+
+//POST------------------------------------------------------------------
+
 export async function createNote(newNote: NewNoteData): Promise<Note> {
   const response = await nextServer.post<Note>("/notes", newNote);
   return response.data;
 }
 
-export async function register(userData: RegisterRequest): Promise<User> {
-  const response = await nextServer.post<User>("/auth/register", userData);
+export async function register(
+  userData: RegisterRequest
+): Promise<RegisterResponse> {
+  const response = await nextServer.post<RegisterResponse>(
+    "/auth/register",
+    userData
+  );
+  if (!response.data.email || !response.data.username) {
+    throw new Error("Invalid response from server");
+  }
+  console.log("Register response:", response.data);
+
   return response.data;
 }
 
-//DELETE
+export async function login(userData: RegisterRequest): Promise<User> {
+  const response = await nextServer.post<User>("/auth/login", userData);
+  if (!response.data.email || !response.data.username) {
+    throw new Error("Invalid response from server");
+  }
+
+  return response.data;
+}
+
+export async function logout() {
+  await nextServer.post("/auth/logout");
+}
+
+//DELETE----------------------------------------------------------------------
 export async function deleteNote(noteId: number): Promise<Note> {
   const response = await nextServer.delete<Note>(`/notes/${noteId}`);
-  return response.data;
-}
-
-//GET NOTE BY ID
-export async function fetchNoteById(noteId: number): Promise<Note> {
-  const response = await nextServer.get<Note>(`/notes/${noteId}`);
   return response.data;
 }

@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
   const page = Number(request.nextUrl.searchParams.get("page") ?? 1);
   const rawTag = request.nextUrl.searchParams.get("tag") ?? "";
   const tag = rawTag === "All" ? "" : rawTag;
-  console.log(cookieStore);
+
   const { data } = await api("/notes", {
     params: {
       ...(search !== "" && { search }),
