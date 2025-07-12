@@ -1,7 +1,8 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { api } from "../../api";
 import { parse } from "cookie";
+import { Context } from "vm";
 
 export async function GET() {
   const cookieStore = await cookies();
@@ -43,29 +44,31 @@ export async function GET() {
   return NextResponse.json({ success: false });
 }
 
-// type Context = {
-//   params: {
-//     id: string;
-//   };
-// };
+interface NoteDetailsProps {
+  params: Promise<{ id: string }>;
+}
 
-// export async function DELETE(request: NextRequest, { params }: Context) {
-//   const { id } = params;
-//   const cookieStore = await cookies();
+export async function DELETE(
+  request: NextRequest,
+  { params }: NoteDetailsProps
+) {
+  const cookieStore = await cookies();
+  const { id } = await params;
 
-//   try {
-//     const { data } = await api.delete(`/notes/${id}`, {
-//       headers: {
-//         Cookie: cookieStore.toString(),
-//       },
-//     });
+  try {
+    const { data } = await api.delete(`/notes/${id}`, {
+      headers: {
+        Cookie: cookieStore.toString(),
+        "Content-Type": "application/json",
+      },
+    });
 
-//     return NextResponse.json(data, { status: 200 });
-//   } catch (error) {
-//     console.error("Failed to delete note:", error);
-//     return NextResponse.json(
-//       { error: "Failed to delete note" },
-//       { status: 500 }
-//     );
-//   }
-// }
+    if (data) {
+      return NextResponse.json(data, { status: 201 });
+    }
+  } catch (error) {
+    console.error("Error creating note:", error);
+  }
+
+  return NextResponse.json({ error: "Failed to create note" }, { status: 500 });
+}
