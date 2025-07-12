@@ -3,11 +3,13 @@
 import React, { useState } from "react";
 import css from "./SignUp.module.css";
 import { useRouter } from "next/navigation";
-import { register, RegisterRequest } from "@/lib/api/clientApi";
+import { getMe, register, RegisterRequest } from "@/lib/api/clientApi";
+import { useAuthStore } from "@/lib/store/authStore";
 
 const SignUpPage = () => {
   const router = useRouter();
   const [error, setError] = useState("");
+  const { setIsAuthenticated, setUser } = useAuthStore.getState();
 
   const handleSubmit = async (formData: FormData) => {
     try {
@@ -16,6 +18,9 @@ const SignUpPage = () => {
         password: String(formData.get("password")),
       };
       await register(formValues);
+      setIsAuthenticated(true);
+      const user = await getMe();
+      setUser(user);
       router.push("/profile");
     } catch (err) {
       console.error("error", err);

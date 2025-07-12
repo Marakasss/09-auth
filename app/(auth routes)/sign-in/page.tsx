@@ -18,9 +18,9 @@ const SignInPage = () => {
         password: String(formData.get("password")),
       };
       await login(formValues);
-      router.push("/profile");
       setIsAuthenticated(true);
       const user = await getMe();
+      router.push("/profile");
       setUser(user);
     } catch (err) {
       console.error("error", err);
