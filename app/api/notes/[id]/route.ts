@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { api } from "../../api";
 import { parse } from "cookie";
@@ -41,4 +41,28 @@ export async function GET() {
     }
   }
   return NextResponse.json({ success: false });
+}
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  const { id } = params;
+  const cookieStore = await cookies();
+
+  try {
+    const { data } = await api.delete(`/notes/${id}`, {
+      headers: {
+        Cookie: cookieStore.toString(),
+      },
+    });
+
+    return NextResponse.json(data, { status: 200 });
+  } catch (error) {
+    console.error("Failed to delete note:", error);
+    return NextResponse.json(
+      { error: "Failed to delete note" },
+      { status: 500 }
+    );
+  }
 }

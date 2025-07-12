@@ -105,7 +105,7 @@ export async function logout() {
 }
 
 //DELETE----------------------------------------------------------------------
-export async function deleteNote(noteId: number): Promise<Note> {
+export async function deleteNote(noteId: string): Promise<Note> {
   const response = await nextServer.delete<Note>(`/notes/${noteId}`);
   return response.data;
 }
