@@ -43,10 +43,13 @@ export async function GET() {
   return NextResponse.json({ success: false });
 }
 
-export async function DELETE(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+type Context = {
+  params: {
+    id: string;
+  };
+};
+
+export async function DELETE(request: NextRequest, { params }: Context) {
   const { id } = params;
   const cookieStore = await cookies();
 
