@@ -20,8 +20,8 @@ const SignInPage = () => {
       await login(formValues);
       setIsAuthenticated(true);
       const user = await getMe();
-      router.push("/profile");
       setUser(user);
+      router.push("/profile");
     } catch (err) {
       console.error("error", err);
       setError("Invalid email or password");
