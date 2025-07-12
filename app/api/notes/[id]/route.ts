@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { api } from "../../api";
 import { parse } from "cookie";
-import { Context } from "vm";
 
 export async function GET() {
   const cookieStore = await cookies();
