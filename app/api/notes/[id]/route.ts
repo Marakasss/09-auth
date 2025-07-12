@@ -67,8 +67,8 @@ export async function DELETE(
       return NextResponse.json(data, { status: 201 });
     }
   } catch (error) {
-    console.error("Error creating note:", error);
+    console.error("Error deleting note:", error);
   }
 
-  return NextResponse.json({ error: "Failed to create note" }, { status: 500 });
+  return NextResponse.json({ error: "Failed to delete note" }, { status: 500 });
 }
