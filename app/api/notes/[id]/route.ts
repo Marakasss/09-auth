@@ -43,29 +43,29 @@ export async function GET() {
   return NextResponse.json({ success: false });
 }
 
-type Context = {
-  params: {
-    id: string;
-  };
-};
+// type Context = {
+//   params: {
+//     id: string;
+//   };
+// };
 
-export async function DELETE(request: NextRequest, { params }: Context) {
-  const { id } = params;
-  const cookieStore = await cookies();
+// export async function DELETE(request: NextRequest, { params }: Context) {
+//   const { id } = params;
+//   const cookieStore = await cookies();
 
-  try {
-    const { data } = await api.delete(`/notes/${id}`, {
-      headers: {
-        Cookie: cookieStore.toString(),
-      },
-    });
+//   try {
+//     const { data } = await api.delete(`/notes/${id}`, {
+//       headers: {
+//         Cookie: cookieStore.toString(),
+//       },
+//     });
 
-    return NextResponse.json(data, { status: 200 });
-  } catch (error) {
-    console.error("Failed to delete note:", error);
-    return NextResponse.json(
-      { error: "Failed to delete note" },
-      { status: 500 }
-    );
-  }
-}
+//     return NextResponse.json(data, { status: 200 });
+//   } catch (error) {
+//     console.error("Failed to delete note:", error);
+//     return NextResponse.json(
+//       { error: "Failed to delete note" },
+//       { status: 500 }
+//     );
+//   }
+// }
