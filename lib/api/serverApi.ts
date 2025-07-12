@@ -39,7 +39,7 @@ export async function fetchNoteByIdServer(noteId: string): Promise<Note> {
 
 export async function checkServerSession() {
   const cookieStore = await cookies();
-  const res = await nextServer.get("/auth/refresh", {
+  const res = await nextServer.get("/auth/session", {
     headers: {
       Cookie: cookieStore.toString(),
     },
@@ -48,7 +48,7 @@ export async function checkServerSession() {
 }
 
 export const getMeServer = async () => {
-   const cookieStore = await cookies();
+  const cookieStore = await cookies();
   const responce = await nextServer.get<User>("/auth/me", {
     headers: {
       Cookie: cookieStore.toString(),

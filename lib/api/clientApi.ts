@@ -56,7 +56,7 @@ export async function fetchNoteById(noteId: string): Promise<Note> {
 //GET USER SESSION
 export async function checkSession(): Promise<boolean> {
   try {
-    await nextServer.get("/auth/refresh");
+    await nextServer.get("/auth/session");
     return true;
   } catch {
     return false;
