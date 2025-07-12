@@ -24,13 +24,22 @@ const AuthNavigation = () => {
   console.log("user", user);
   console.log("auth", isAuthenticated);
 
-  return !isAuthenticated ? (
+  return isAuthenticated ? (
     <>
       <li className={css.navigationItem}>
         <Link href="/profile" prefetch={false} className={css.navigationLink}>
           Profile
         </Link>
       </li>
+      <li className={css.navigationItem}>
+        <p className={css.userEmail}>{user?.email.split("@")[0]}</p>
+        <button onClick={handleLogout} className={css.logoutButton}>
+          Logout
+        </button>
+      </li>
+    </>
+  ) : (
+    <>
       <li className={css.navigationItem}>
         <Link href="/sign-in" prefetch={false} className={css.navigationLink}>
           Login
@@ -42,13 +51,6 @@ const AuthNavigation = () => {
         </Link>
       </li>
     </>
-  ) : (
-    <li className={css.navigationItem}>
-      <p className={css.userEmail}>{user?.email.split("@")[0]}</p>
-      <button onClick={handleLogout} className={css.logoutButton}>
-        Logout
-      </button>
-    </li>
   );
 };
 

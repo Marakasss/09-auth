@@ -2,12 +2,14 @@
 
 import React, { useState } from "react";
 import css from "./SignInPage.module.css";
-import { login, RegisterRequest } from "@/lib/api/clientApi";
+import { getMe, login, RegisterRequest } from "@/lib/api/clientApi";
 import { useRouter } from "next/navigation";
+import { useAuthStore } from "@/lib/store/authStore";
 
 const SignInPage = () => {
   const router = useRouter();
   const [error, setError] = useState("");
+  const { setIsAuthenticated, setUser } = useAuthStore.getState();
 
   const handleSubmit = async (formData: FormData) => {
     try {
@@ -17,6 +19,9 @@ const SignInPage = () => {
       };
       await login(formValues);
       router.push("/profile");
+      setIsAuthenticated(true);
+      const user = await getMe();
+      setUser(user);
     } catch (err) {
       console.error("error", err);
       setError("Invalid email or password");
