@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import { FetchNotesParams, FetchNotesResponse } from "./clientApi";
 import { Note } from "@/types/note";
 import nextServer from "./api";
+import { User } from "@/types/user";
 
 //Fetch notes with server-side cookies
 export async function fetchNotesServer(
@@ -45,3 +46,13 @@ export async function checkServerSession() {
   });
   return res;
 }
+
+export const getMeServer = async () => {
+   const cookieStore = await cookies();
+  const responce = await nextServer.get<User>("/auth/me", {
+    headers: {
+      Cookie: cookieStore.toString(),
+    },
+  });
+  return responce.data;
+};

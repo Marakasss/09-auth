@@ -32,7 +32,7 @@ const AuthNavigation = () => {
         </Link>
       </li>
       <li className={css.navigationItem}>
-        <p className={css.userEmail}>{user?.email.split("@")[0]}</p>
+        <p className={css.userEmail}>{user?.username}</p>
         <button onClick={handleLogout} className={css.logoutButton}>
           Logout
         </button>

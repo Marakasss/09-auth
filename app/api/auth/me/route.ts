@@ -19,3 +19,30 @@ export async function GET() {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 }
+
+export async function PATCH(request: Request) {
+  const cookieStore = await cookies();
+
+  const body = await request.json();
+
+  try {
+    const { data } = await api.patch("/users/me", body, {
+      headers: {
+        Cookie: cookieStore.toString(),
+      },
+    });
+    if (data) {
+      return NextResponse.json(data);
+    }
+    return NextResponse.json(
+      { error: "Failed to update username" },
+      { status: 500 }
+    );
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json(
+      { error: "Failed to update username" },
+      { status: 500 }
+    );
+  }
+}

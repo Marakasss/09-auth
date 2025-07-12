@@ -22,7 +22,7 @@ export interface RegisterRequest {
   password: string;
 }
 
-export interface RegisterResponse {
+export interface AuthUserData {
   username: string;
   email: string;
 }
@@ -78,8 +78,8 @@ export async function createNote(newNote: NewNoteData): Promise<Note> {
 
 export async function register(
   userData: RegisterRequest
-): Promise<RegisterResponse> {
-  const response = await nextServer.post<RegisterResponse>(
+): Promise<AuthUserData> {
+  const response = await nextServer.post<AuthUserData>(
     "/auth/register",
     userData
   );
@@ -109,3 +109,14 @@ export async function deleteNote(noteId: string): Promise<Note> {
   const response = await nextServer.delete<Note>(`/notes/${noteId}`);
   return response.data;
 }
+
+//PATCH----------------------------------------------------------------------
+export async function updateNote(noteId: string): Promise<Note> {
+  const response = await nextServer.patch<Note>(`/notes/${noteId}`);
+  return response.data;
+}
+
+export const editUser = async (user: AuthUserData): Promise<User> => {
+  const responce = await nextServer.patch<AuthUserData>("/auth/me", user);
+  return responce.data;
+};
