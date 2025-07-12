@@ -55,9 +55,8 @@ const SignUpPage = () => {
           </button>
         </div>
 
-        <p className={css.error}>Error</p>
+        <p className={css.error}>{error && <p>{error}</p>}</p>
       </form>
-      {error && <p>{error}</p>}
     </main>
   );
 };
