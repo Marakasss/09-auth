@@ -3,6 +3,40 @@ import css from "./ProfilePage.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import { getMeServer } from "@/lib/api/serverApi";
+import { Metadata } from "next";
+
+//Metadata----------------------------------------
+
+export const generateMetadata = async (): Promise<Metadata> => {
+  const { username, avatar } = await getMeServer();
+
+  return {
+    title: username || "Guest Profile",
+    description: `profile of ${username || "Guest"}`,
+
+    openGraph: {
+      title: username || "Guest Profile",
+      description: `profile of ${username || "Guest"}`,
+      url: `https://09-auth-cyan.vercel.app/profile`,
+      siteName: "NoteHub",
+      images: [
+        {
+          url: avatar || "/default-avatar.jpg",
+          width: 1200,
+          height: 630,
+          alt: "NoteHub App",
+        },
+      ],
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: username || "Guest Profile",
+      description: `profile of ${username || "Guest"}`,
+      images: [avatar || "/default-avatar.jpg"],
+    },
+  };
+};
 
 const ProfilePage = async () => {
   const user = await getMeServer();

@@ -31,7 +31,7 @@ export const generateMetadata = async ({
     openGraph: {
       title: title || "Note details",
       description: snippet,
-      url: `https://08-zustand-psi.vercel.app/filter/${id}`,
+      url: `https://09-auth-cyan.vercel.app/filter/${id}`,
       siteName: "NoteHub",
       images: [
         {

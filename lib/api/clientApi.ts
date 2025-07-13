@@ -65,7 +65,7 @@ export async function checkSession(): Promise<boolean> {
 
 //GET CURRENT USER
 export const getMe = async () => {
-  const responce = await nextServer.get<User>("/auth/me");
+  const responce = await nextServer.get<User>("/users/me");
   return responce.data;
 };
 
@@ -83,19 +83,12 @@ export async function register(
     "/auth/register",
     userData
   );
-  if (!response.data.email || !response.data.username) {
-    throw new Error("Invalid response from server");
-  }
-  console.log("Register response:", response.data);
 
   return response.data;
 }
 
 export async function login(userData: RegisterRequest): Promise<User> {
   const response = await nextServer.post<User>("/auth/login", userData);
-  if (!response.data.email || !response.data.username) {
-    throw new Error("Invalid response from server");
-  }
 
   return response.data;
 }
@@ -111,12 +104,8 @@ export async function deleteNote(noteId: string): Promise<Note> {
 }
 
 //PATCH----------------------------------------------------------------------
-export async function updateNote(noteId: string): Promise<Note> {
-  const response = await nextServer.patch<Note>(`/notes/${noteId}`);
-  return response.data;
-}
 
 export const editUser = async (user: AuthUserData): Promise<User> => {
-  const responce = await nextServer.patch<AuthUserData>("/auth/me", user);
+  const responce = await nextServer.patch<User>("/users/me", user);
   return responce.data;
 };

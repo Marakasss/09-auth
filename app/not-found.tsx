@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     siteName: "NoteHub",
     images: [
       {
-        url: "https://08-zustand-psi.vercel.app/404.jpg",
+        url: "https://09-auth-cyan.vercel.app/404.jpg",
         width: 1200,
         height: 630,
         alt: "Page not found",
