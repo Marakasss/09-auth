@@ -1,12 +1,16 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { api } from "../../api";
 import { parse } from "cookie";
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   const cookieStore = await cookies();
+  const accessToken = cookieStore.get("accessToken")?.value;
   const refreshToken = cookieStore.get("refreshToken")?.value;
-  const next = request.nextUrl.searchParams.get("next") || "/";
+
+  if (accessToken) {
+    return NextResponse.json({});
+  }
 
   if (refreshToken) {
     const apiRes = await api.get("auth/session", {
@@ -29,12 +33,8 @@ export async function GET(request: NextRequest) {
       if (accessToken) cookieStore.set("accessToken", accessToken);
       if (refreshToken) cookieStore.set("refreshToken", refreshToken);
 
-      return NextResponse.redirect(new URL(next, request.url), {
-        headers: {
-          "set-cookie": cookieStore.toString(),
-        },
-      });
+      return NextResponse.json({});
     }
   }
-  return NextResponse.redirect(new URL("/sign-in", request.url));
+  return NextResponse.json({});
 }
