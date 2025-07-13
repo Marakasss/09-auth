@@ -12,11 +12,11 @@ export const generateMetadata = async (): Promise<Metadata> => {
 
   return {
     title: username || "Guest Profile",
-    description: `profile of ${username || "Guest"}`,
+    description: `profile of ${username}`,
 
     openGraph: {
       title: username || "Guest Profile",
-      description: `profile of ${username || "Guest"}`,
+      description: `profile of ${username}`,
       url: `https://09-auth-cyan.vercel.app/profile`,
       siteName: "NoteHub",
       images: [
@@ -32,7 +32,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
     twitter: {
       card: "summary_large_image",
       title: username || "Guest Profile",
-      description: `profile of ${username || "Guest"}`,
+      description: `profile of ${username}`,
       images: [avatar || "/default-avatar.jpg"],
     },
   };
